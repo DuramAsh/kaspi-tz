@@ -21,4 +21,4 @@ temp/
 *.data
 *.bin
 *.log
-.env*
+.env
