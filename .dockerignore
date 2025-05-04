@@ -1,0 +1,8 @@
+.git*
+.dockerignore
+stress-test/
+Dockerfile
+example*
+*.deployment.yaml
+stack
+.vscode

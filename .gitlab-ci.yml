@@ -1,0 +1,8 @@
+include:
+  - project: 'openapi/infrastructure/gitlab'
+    file:
+      - '.gitlab-ci-template.yml'
+
+variables:
+  PORT: "2004"
+  SWAGGER_URL: "http://products.halyklife.nb/test/openapi/product/swagger/index.html"

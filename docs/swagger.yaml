@@ -1,0 +1,168 @@
+definitions:
+  person.CreatePersonRequest:
+    properties:
+      iin:
+        type: string
+      name:
+        type: string
+      phone:
+        type: string
+    type: object
+  person.GetPersonResponse:
+    properties:
+      iin:
+        type: string
+      name:
+        type: string
+      phone:
+        type: string
+    type: object
+  person.ValidateIINResponse:
+    properties:
+      correct:
+        type: boolean
+      date_of_birth:
+        type: string
+      sex:
+        type: string
+    type: object
+  response.Object:
+    properties:
+      data: {}
+      errors:
+        type: string
+      success:
+        type: boolean
+    type: object
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: :-)
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Swagger doc
+  version: 3.0.3
+paths:
+  /iin_check:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - default: "020513550507"
+        description: iin
+        in: query
+        name: iin
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/person.ValidateIINResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.Object'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.Object'
+      summary: Validate IIN
+      tags:
+      - validation
+  /people/info:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: req body
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/person.CreatePersonRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Object'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.Object'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.Object'
+      summary: Create person
+      tags:
+      - people
+  /people/info/iin/{iin}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - default: "020513550507"
+        description: path param
+        in: path
+        name: iin
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/person.GetPersonResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.Object'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.Object'
+      summary: Get person by IIN
+      tags:
+      - people
+  /people/info/name/{name}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - default: жакс
+        description: path param
+        in: path
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/person.GetPersonResponse'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.Object'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.Object'
+      summary: Get people by name part
+      tags:
+      - people
+swagger: "2.0"
